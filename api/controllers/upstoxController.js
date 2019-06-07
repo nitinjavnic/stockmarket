@@ -55,13 +55,21 @@ module.exports = {
 
                                 upstox.on("liveFeed", async function (livedata) {
                                     livedata.forEach(async function (value,index) {
-                                        console.log('live ltp is ',value.ltp);
-
                                          await liveltp.create({exchange:value.exchange,feedSymbool:value.symbol,liveLtp:value.ltp});
-
 
                                     });
                                 });
+
+                                liveltp.query('SELECT * FROM liveltp WHERE createdAt > DATE_SUB(NOW(),INTERVAL 1 MINUTE)' ,async function(err, rawResult) {
+                                    if (err) { return res.serverError(err); }
+
+                                    sails.log(rawResult);
+
+                                    return res.ok();
+
+                                });
+
+
 
                             }).catch(function(err){
                             console.log('Error',err);

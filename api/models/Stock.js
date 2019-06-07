@@ -9,6 +9,12 @@ module.exports = {
             type: 'string',
             required: true,
         },
+
+        volume: {
+            type: 'string',
+            required: true,
+        },
+
         yearlyhigh:{
             type: 'string',
         },
