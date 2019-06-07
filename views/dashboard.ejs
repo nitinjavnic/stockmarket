@@ -1,0 +1,818 @@
+<div class="main-container ace-save-state" id="main-container">
+  <script type="text/javascript">
+    try{ace.settings.loadState('main-container')}catch(e){}
+  </script>
+
+  <%- partial('./partials/sideBar.ejs') %>
+
+
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="#">Home</a>
+          </li>
+          <li class="active">Dashboard</li>
+        </ul><!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+          <form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+          </form>
+        </div><!-- /.nav-search -->
+      </div>
+
+      <div class="page-content">
+        <div class="page-header">
+          <h1>
+            Dashboard
+            <small>
+              <i class="ace-icon fa fa-angle-double-right"></i>
+              overview &amp; stats
+            </small>
+          </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+
+            <div class="space-6"></div>
+            <div class="row">
+
+              <div class="col-sm-6 "><!-----Client Detail --->
+                <div class="right">
+                  <span class="circle bg-check1"></span>
+                  <span class="circle "></span>
+                </div>
+                <div class="widget-box center">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                      Zerodha Client Login
+                    </h4>
+
+                    <div class="widget-toolbar">
+                      <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="widget-body">
+                    <div class="widget-main no-padding">
+                      <table class="table table-bordered table-striped ">
+                        <thead class="thin-border-bottom ">
+                        <tr>
+                          <th class="center">
+                            ZERODHA CLIENTS NAME
+                          </th>
+                          <th class="center">
+                            Status
+                          </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <%
+                        Zerodhaclients.forEach(function (current,index) {
+                        %>
+                        <tr>
+                          <td><%=current.name%></td>
+                          <td id="clientsatus">
+
+                            <%if(current.isLogin===true){%>
+                            <span  id="test" class="circle bg-check"></span>
+
+                            <%}else if(current.isLogin==false){%>
+                            <span class="circle bg-check1"></span>
+
+                            <%}%>
+                          </td>
+                        </tr>
+                        <%});%>
+                        </tbody>
+
+                      </table>
+                    </div><!-- /.widget-main -->
+                  </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
+              </div><!-- /.col -->
+
+              <div class="col-sm-6 "><!-----Client Detail --->
+                <div class="right">
+
+
+                  <span id="stausCheck"></span>
+
+
+                </div>
+                <div class="widget-box center">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                      UPSTOX CLIENT LOGIN
+                    </h4>
+
+
+
+
+                    <div class="widget-toolbar">
+                      <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="widget-body">
+                    <div class="widget-main no-padding">
+                      <table id="upstoxClient" class="table table-bordered table-striped ">
+                        <thead class="thin-border-bottom ">
+                        <tr id="mytr">
+                          <th class="center">
+                            Clients name
+                          </th>
+                          <th class="center">
+                            Status
+                          </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <%
+                        clients.forEach(function (current,index) {
+                        %>
+                        <tr>
+                          <td><%=current.name%></td>
+                          <td id="clientsatus">
+
+                            <%if(current.isLogin===true){%>
+                            <span  id="test" class="circle bg-check"></span>
+
+                            <%}else if(current.isLogin==false){%>
+                            <span class="circle bg-check1"></span>
+
+                            <%}%>
+                          </td>
+                        </tr>
+                      <%});%>
+                        </tbody>
+                      </table>
+                    </div><!-- /.widget-main -->
+                  </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
+              </div><!-- /.col -->
+            </div><!-- /.col -->
+
+
+
+            <!----client detail end------->
+            <div class="hr hr32 hr-dotted"></div>
+            <!------Feed---------->
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="right">
+
+                  <span id="feedButton"></span>
+
+                </div>
+                <div class="widget-box center ">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                      FEED
+                    </h4>
+
+                    <div class="widget-toolbar">
+                      <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="widget-body">
+                    <div class="widget-main no-padding">
+                      <table class="table table-bordered table-striped ">
+                        <thead class="thin-border-bottom ">
+                        <tr>
+                          <th class="center">
+                            Feed Name
+                          </th>
+                          <th class="center">
+                            Status
+                          </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <%
+                        Feed.forEach(function (current,index) {
+                          let upStoxFeed = current.upStoxFeed;
+                          let zerodhaFeed = current.zerodhaFeed;
+                        %>
+
+                        <tr>
+                          <td><%=current.upstoxTitle%></td>
+                          <td id="upstoxId">
+                            <%if(upStoxFeed===true){%>
+                            <span class="circle bg-check"></span>
+                            <%}else if(upStoxFeed===false){%>
+                            <span class="circle bg-check1"></span>
+
+                            <%}%>
+                          </td>
+                        </tr>
+
+
+                        <tr>
+                          <td><%=current.zerodhaTitle%></td>
+                          <td id="zerodhaId">
+                            <%if(zerodhaFeed===true){%>
+                            <span class="circle bg-check"></span>
+                            <%}else if(zerodhaFeed===false){%>
+                            <span class="circle bg-check1"></span>
+
+                            <%}%>
+                          </td>
+
+
+                        </tr>
+
+
+
+
+                     <%})%>
+                        </tbody>
+                      </table>
+                    </div><!-- /.widget-main -->
+                  </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
+              </div><!-- /.col -->
+              <!------Feed end---------->
+
+              <!-----Zerodha Subscribe end------>
+              <div class="col-sm-4">
+                <div class="right">
+                  <span class="circle bg-check1"></span>
+                  <span class="circle "></span>
+                </div>
+                <div class="widget-box center">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                      ZERODHA SUBSCRIBE
+                    </h4>
+
+                    <div class="widget-toolbar">
+                      <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="widget-body">
+                    <div class="widget-main no-padding">
+                      <table class="table table-bordered table-striped ">
+                        <thead class="thin-border-bottom ">
+                        <tr>
+                          <th class="center">
+                            Feed Name
+                          </th>
+                          <th class="center">
+                            Status
+                          </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                          <td>BN</td>
+                          <td>
+                            <span class="circle bg-check1"></span>
+                            <span class="circle "></span>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Nifty</td>
+                          <td>
+                            <span class="circle bg-check1"></span>
+                            <span class="circle "></span>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>Future</td>
+                          <td>
+                            <span class="circle bg-check1"></span>
+                            <span class="circle "></span>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div><!-- /.widget-main -->
+                  </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
+              </div><!-- /.col -->
+              <!-----Zerodha Subscribe End------>
+
+              <!-----UpStox Subscribe------>
+              <div class="col-sm-4">
+                <div class="right">
+
+                  <span id="subsscibebtn"></span>
+                </div>
+                <div class="widget-box center">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                      UPSTOX SUBSCRIBE
+                    </h4>
+
+                    <div class="widget-toolbar">
+                      <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="widget-body">
+                    <div class="widget-main no-padding" >
+
+                      <table class="table table-bordered table-striped ">
+                        <thead class="thin-border-bottom ">
+                        <tr>
+                          <th class="center">
+                            Feedsymbool
+                          </th>
+
+                          <th class="center">
+                            Exchange
+                          </th>
+                          <th class="center">
+                            Status
+                          </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <%
+                        subscribe.forEach(function (current,index) { %>
+
+                        <tr>
+                          <td><%=current.Feedsymbool%></td>
+                          <td><%=current.exchange%></td>
+                          <td id="subscribe">
+                            <%if(current.isSubscribe===true){ %>
+                            <span class="circle bg-check"></span>
+
+                            <%}else if(current.isSubscribe===false){%>
+                            <span class="circle bg-check1"></span>
+
+                            <%}%>
+
+                          </td>
+                        </tr>
+
+
+
+
+                      <%})%>
+                        </tbody>
+                      </table>
+                    </div><!-- /.widget-main -->
+                  </div><!-- /.widget-body -->
+                </div><!-- /.widget-box -->
+              </div><!-- /.col -->
+              <!-----UpStox Subscribe end------>
+
+            </div><!-- /.row -->
+          </div><!-- /.row -->
+        </div><!-- /.row -->
+
+        <div class="hr hr32 hr-dotted"></div>
+
+        <!-----Trading pending trigger ------>
+
+
+        <!-----Trading pending trigger end------>
+
+        <div class="hr hr32 hr-dotted"></div>
+
+        <!-----Trading Strategy Execution------>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="widget-box transparent">
+              <div class="widget-header widget-header-flat">
+                <h4 class="widget-title lighter">
+                  <i class="ace-icon fa fa-star orange"></i>
+                  STRATEGY 2
+                </h4>
+
+                <div class="widget-toolbar">
+                  <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="widget-body">
+                <div class="widget-main no-padding">
+                  <div class="table-responsive ">
+                    <table class="table table-bordered ">
+                      <thead>
+                      <tr>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Client
+                        </th>
+
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Side
+                        </th>
+
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Symbol
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Status
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Qty
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Price
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Position
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Time
+                        </th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹100</b>
+                        </td>
+                        <td>
+                          <i class="text-success">Delivery</i>
+                        </td>
+                        <td>
+                          9:15:02
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹100</b>
+                        </td>
+                        <td>
+                          <i class="text-danger">interrupted</i>
+                        </td>
+                        <td>
+                          9:15:03
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-success">Complete</span>
+                        </td>
+                        <td>
+                          <b >200</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹200</b>
+                        </td>
+                        <td>
+                          <i class="text-success">Delivery</i>
+                        </td>
+                        <td>
+                          9:15:04
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹300</b>
+                        </td>
+                        <td>
+                          <i class="text-success">Delivery</i>
+                        </td>
+                        <td>
+                          9:15:05
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹100</b>
+                        </td>
+                        <td>
+                          <i class="text-danger">interrupted</i>
+                        </td>
+                        <td>
+                          9:15:06
+                        </td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div><!-- /.widget-main -->
+                </div><!-- /.widget-main -->
+              </div><!-- /.widget-body -->
+            </div><!-- /.widget-box -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+        <!-----Trading Strategy Execution------>
+
+        <div class="hr hr32 hr-dotted"></div>
+
+        <!-----MANUAL pending trigger ------>
+        <!----Manual strategy--->
+        <!-----manual pending trigger end------>
+
+
+        <div class="hr hr32 hr-dotted"></div>
+
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="widget-box transparent">
+              <div class="widget-header widget-header-flat">
+                <h4 class="widget-title lighter">
+                  <i class="ace-icon fa fa-star orange"></i>
+                  STRATEGY 2
+                </h4>
+
+                <div class="widget-toolbar">
+                  <a href="#" data-action="collapse">
+                    <i class="ace-icon fa fa-chevron-up"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="widget-body">
+                <div class="widget-main no-padding">
+                  <div class="table-responsive ">
+                    <table class="table table-bordered ">
+                      <thead>
+                      <tr>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Client
+                        </th>
+
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Side
+                        </th>
+
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Symbol
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Status
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Qty
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Price
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Position
+                        </th>
+                        <th>
+                          <i class="ace-icon fa fa-caret-right blue"></i>Time
+                        </th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹100</b>
+                        </td>
+                        <td>
+                          <i class="text-success">Delivery</i>
+                        </td>
+                        <td>
+                          9:15:02
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹100</b>
+                        </td>
+                        <td>
+                          <i class="text-danger">interrupted</i>
+                        </td>
+                        <td>
+                          9:15:03
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-success">Complete</span>
+                        </td>
+                        <td>
+                          <b >200</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹200</b>
+                        </td>
+                        <td>
+                          <i class="text-success">Delivery</i>
+                        </td>
+                        <td>
+                          9:15:04
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹300</b>
+                        </td>
+                        <td>
+                          <i class="text-success">Delivery</i>
+                        </td>
+                        <td>
+                          9:15:05
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Aseem </td>
+                        <td>
+                          <span class="label label-success">Buy</span>
+                        </td>
+                        <td>Nifty </td>
+                        <td>
+                          <span class="label label-danger">Rejected</span>
+                        </td>
+                        <td>
+                          <b >100</b>
+                        </td>
+                        <td>
+                          <b class="blue">₹100</b>
+                        </td>
+                        <td>
+                          <i class="text-danger">interrupted</i>
+                        </td>
+                        <td>
+                          9:15:06
+                        </td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div><!-- /.widget-main -->
+                </div><!-- /.widget-main -->
+              </div><!-- /.widget-body -->
+            </div><!-- /.widget-box -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+        <!-----Trading Strategy Execution------>
+
+
+
+
+
+        <!-- PAGE CONTENT ENDS -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.page-content -->
+</div>
+<script src="/js/jquery-1.11.3.min.js"></script>
+
+<script>
+
+    if($('#clientsatus > span.circle.bg-check1').length>0){
+        $("#stausCheck").addClass('circle bg-check1');
+    }else{
+        $("#stausCheck").addClass('circle bg-check');
+    }
+
+    if($('#subscribe > span.circle.bg-check1').length>0){
+        $("#subsscibebtn").addClass('circle bg-check1');
+    }else{
+        $("#subsscibebtn").addClass('circle bg-check');
+    }
+
+    if($('#upstoxId > span.circle.bg-check1').length>0){
+        $("#feedButton").addClass('circle bg-check1');
+    }else{
+        $("#feedButton").addClass('circle bg-check');
+    }
+
+    if($('#zerodhaId > span.circle.bg-check1').length>0){
+        $("#feedButton").addClass('circle bg-check1');
+    }else{
+        $("#feedButton").addClass('circle bg-check');
+    }
+
+
+
+
+</script>

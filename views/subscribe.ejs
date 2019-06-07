@@ -1,0 +1,655 @@
+<div class="main-container ace-save-state" id="main-container">
+  <script type="text/javascript">
+    try{ace.settings.loadState('main-container')}catch(e){}
+  </script>
+
+  <%- partial('./partials/sideBar.ejs') %>
+
+
+  <div class="main-content">
+
+    <% flash.get('success').forEach(function (message) { %>
+    <div class="alert alert-danger text-center">
+      <strong ><%= message %></strong>
+    </div>
+    <% }) %>
+
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="index.html">Home</a>
+          </li>
+          <li class="active">Feed & Subscribe</li>
+        </ul><!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+          <form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+          </form>
+        </div><!-- /.nav-search -->
+      </div>
+
+
+
+      <div class="page-content">
+
+
+        <div class="page-header">
+          <h1>
+            Feed Status
+          </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+          <div class="col-sm-12 ">
+            <div class="tabbable">
+              <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                  <a data-toggle="tab" href="#home">
+
+                    Feed
+                  </a>
+                </li>
+
+                <li>
+                  <a data-toggle="tab" href="#messages">
+                    Subscribe
+                  </a>
+                </li>
+
+
+              </ul>
+
+              <div class="tab-content">
+                <!--Feed list----->
+                <div id="home" class="tab-pane fade in active">
+                  <table id="simple-table" class="table  table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <th class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" class="ace activeFeed" />
+                          <span class="lbl"></span>
+                        </label>
+                      </th>
+                      <th>Feeds</th>
+                      <th>Status</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <%
+                    Feed.forEach(function (current,index) {
+                    %>
+                    <tr>
+                      <td class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" value="<%=current.upstoxTitle%>" class="ace feedId"/>
+                          <span class="lbl"></span>
+                        </label>
+                      </td>
+                      <td>
+                        <a href="#"><%=current.upstoxTitle%></a>
+                      </td>
+                      <td>
+
+                        <%if(current.upStoxFeed===true){%>
+                        <span class="label label-sm label-success" id="feedActive">Activate</span>
+
+                        <%}else if(current.upStoxFeed===false){%>
+                        <span class="label label-sm label-danger" id="feedActive">Deactivate</span>
+
+                        <%}%>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" value="<%=current.zerodhaTitle%>" class="ace feedId" />
+                          <span class="lbl"></span>
+                        </label>
+                      </td>
+                      <td>
+                        <a href="#"><%=current.zerodhaTitle%></a>
+                      </td>
+                      <td>
+
+                        <%if(current.zerodhaFeed===true){%>
+                        <span class="label label-sm label-success" id="zerodha">Activate</span>
+
+                        <%}else if(current.zerodhaFeed===false){%>
+                        <span class="label label-sm label-danger" id="zerodha">Deactivate</span>
+
+                        <%}%>
+
+
+
+                      </td>
+
+                    </tr>
+                    <%  });
+                    %>
+
+                    </tbody>
+                  </table>
+
+                  <div class="col-12 text-center">
+                    <input type="submit" class="btn btn-success updateFeed"  value="Update Feed">
+                  </div>
+
+                </div>
+                <!--Feed list End----->
+
+                <!--Feed subscribe----->
+                <div id="messages" class="tab-pane fade">
+                  <table id="simple-table" class="table  table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <!--<th class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" class="ace" />
+                          <span class="lbl"></span>
+                        </label>
+                      </th>-->
+                      <th>Feeds</th>
+                      <th>Platform</th>
+                      <th>Save Data</th>
+                      <th>Exchange</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Update</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <%
+                    Subscribe.forEach(function (current,index) {
+                    %>
+                    <tr>
+                      <!--<td class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" class="ace" />
+                          <span class="lbl"></span>
+                        </label>
+                      </td>-->
+                      <td>
+                        <a href="#"><%=current.Feedsymbool%></a>
+                      </td>
+
+                      <td>
+                        <select class="custom-select">
+                          <option value="">Select</option>
+                          <option value="Upstox">Upstox</option>
+                          <option value="Zerodha">Zerodha</option>
+                        </select>
+                      </td>
+
+                      <td>
+                        <select class="custom-select">
+                          <option value="">Select</option>
+                          <option value="index">Index</option>
+                          <option value="stock">Stock</option>
+                          <option value="future">Future</option>
+                          <option value="option">Option</option>
+                        </select>
+                      </td>
+
+                      <td>
+                        <a href="#"><%=current.exchange%></a>
+                      </td>
+                      <td>
+
+
+                        <span class="label label-sm label-success">online</span>
+                      </td>
+                      <td>
+                        <a class="danger deleteSubscribe " id="<%=current.id%>"  href="#">
+                          <i class="ace-icon fa fa-trash-o bigger-130"> </i>
+                        </a>
+                      </td>
+
+
+                      <td>
+                        <a class="green update_subscribe" id="<%=current.id%>"  href="#">
+                          <i class="ace-icon fa fa-pencil bigger-130"> </i>
+                        </a>
+                      </td>
+
+
+                    </tr>
+                    <%  });
+                    %>
+
+                    </tbody>
+                  </table>
+                  <div class="col-12 text-center">
+                    <input type="submit" class="btn btn-success addSubscribe" value="Add more">
+                  </div>
+                </div>
+                <!--Feed subscribe end----->
+
+                <!--Feed view----->
+<!--
+                <div id="dropdown1" class="tab-pane fade">
+                  <table id="simple-table" class="table  table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <th class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" class="ace selectAll" />
+                          <span class="lbl"></span>
+                        </label>
+                      </th>
+                      <th>Feeds</th>
+                      <th>Exchange</th>
+                      <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <%
+                    Subscribe.forEach(function (current,index) {
+                    %>
+
+                    <tr>
+                      <td class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox"  value="<%=current.id%>" class="ace subscribeId" />
+
+                          <span class="lbl"></span>
+                        </label>
+                      </td>
+                      <td>
+                        <a href="/ohlc?feed=<%=current.Feedsymbool%>"><%=current.Feedsymbool%></a>
+                      </td>
+
+                      <td>
+                        <a href="#"><%=current.exchange%></a>
+                      </td>
+                      <td>
+
+                        <%if(current.isSubscribe===true){%>
+                        <span class="label label-sm label-success" id="enabled<%=current.id%>">Activate</span>
+
+                        <%}else if(current.isSubscribe===false){%>
+                        <span class="label label-sm label-danger" id="enabled<%=current.id%>">Deactivte</span>
+
+                        <%}%>
+
+                      </td>
+
+
+
+                    </tr>
+                    <%  });
+                    %>
+
+                    </tbody>
+                  </table>
+                  <div class="col-12 text-center">
+                    <input type="submit" class="btn btn-success updateSubscribe"  value="Update Subscribe">
+                  </div>
+                </div>
+-->
+                <!--Feed view end----->
+              </div>
+            </div>
+          </div><!-- /.col -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.page-content -->
+  </div>
+  <!-- /.main-content -->
+
+
+  <div class="modal fade bd-example-modal-lg" id="update_subscribe" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="col-sm-12">
+          <div class="widget-box bg-white">
+            <div class="widget-header widget-header-flat">
+              <h4 class="widget-title">Add Subscribe</h4>
+            </div>
+            <div class="space-8"></div><!---upstox form-->
+            <form action="/subscribeUpdate" class="form-horizontal" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Feedsymbols</label>
+
+                <div class="col-xs-12 col-sm-9">
+                  <div class="clearfix">
+                    <input type="hidden" id="subscribeId" name="subscribeId" class="col-xs-12 col-sm-10" />
+
+                    <input type="text" id="Feedsymbool" name="Feedsymbool" placeholder="Add Feedsymbool eg.reliance" class="col-xs-12 col-sm-10" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-2"></div>
+
+
+              <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Exchange</label>
+
+                <div class="col-xs-12 col-sm-9">
+                  <div class="clearfix">
+                    <input type="text" id="exchange" name="exchange" placeholder="Add Exchange eg. nse_eq"  class="col-xs-12 col-sm-10" />
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <div class="col-xs-12 col-sm-12 text-center">
+                  <input type="submit" class="btn btn-success" value="UpdateSubscribe">
+
+                </div>
+              </div>
+
+
+            </form><!---upstox form end-->
+          </div>
+        </div><!-- /.col -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+  </a>
+</div><!-- /.main-container -->
+
+
+<div class="modal fade bd-example-modal-lg" id="subscribeModel" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="col-sm-12">
+        <div class="widget-box bg-white">
+          <div class="widget-header widget-header-flat">
+            <h4 class="widget-title">Add Subscribe</h4>
+          </div>
+          <div class="space-8"></div><!---upstox form-->
+          <form action="/addSubscribe" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Feedsymbols</label>
+
+              <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                  <input type="text" id="name" name="Feedsymbool" placeholder="Add Feedsymbool eg.reliance" class="col-xs-12 col-sm-10" />
+                </div>
+              </div>
+            </div>
+
+            <div class="space-2"></div>
+
+
+            <div class="form-group">
+              <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Exchange</label>
+
+              <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                  <input type="text" id="name" name="exchange" placeholder="Add Exchange eg. nse_eq"  class="col-xs-12 col-sm-10" />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-xs-12 col-sm-12 text-center">
+                <input type="submit" class="btn btn-success" value="AddSubscribe">
+
+              </div>
+            </div>
+
+
+          </form><!---upstox form end-->
+        </div>
+      </div><!-- /.col -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/jquery-1.11.3.min.js"></script>
+
+<script>
+
+
+  $(document).ready(function(){
+    $('.update_subscribe').click(function(){
+      var id = $(this).attr("id");
+      $.ajax({
+        url: '/selectSubscribe',
+        type: 'POST',
+        data: {subscribeId: id},
+        success: function(response){
+          var Feedsymbool = response.subscribe[0].Feedsymbool
+          var exchange = response.subscribe[0].exchange
+          $('#Feedsymbool').val(Feedsymbool);
+          $('#exchange').val(exchange);
+          $("#update_subscribe").modal('show');
+        }
+      });
+    });
+  });
+
+
+  $(document).ready(function(){
+    $('.update_subscribe').click(function(){
+      var id = $(this).attr("id");
+      $.ajax({
+        url: '/selectSubscribe',
+        type: 'POST',
+        data: {subscribeId: id},
+        success: function(response){
+          var Feedsymbool = response.subscribe[0].Feedsymbool
+          var exchange = response.subscribe[0].exchange
+          var subscribeId = response.subscribe[0].id
+          $('#Feedsymbool').val(Feedsymbool);
+          $('#exchange').val(exchange);
+          $('#subscribeId').val(subscribeId);
+          $("#update_subscribe").modal('show');
+        }
+      });
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+  $(document).ready(function(){
+    $('.addSubscribe').click(function() {
+      $("#subscribeModel").modal('show');
+
+    });
+
+  });
+
+  //active subscribe
+
+  $('.selectAll').click(function() {
+    if ($(this).is(':checked')) {
+      $('input:checkbox').prop('checked', true);
+    } else {
+      $('input:checkbox').prop('checked', false);
+    }
+  });
+
+  $("input[type='checkbox'].justone").change(function(){
+    var a = $("input[type='checkbox'].justone");
+    if(a.length == a.filter(":checked").length){
+      $('.selectall').prop('checked', true);
+    }
+    else {
+      $('.selectall').prop('checked', false);
+    }
+  });
+
+  i = 0;
+  $(".updateSubscribe").click(function(e){
+    var arr = [];
+    $('.subscribeId:checked').each(function () {
+      arr[i++] = $(this).val();
+    });
+    var newArray = arr.filter(function(v){return v!==''});
+
+    $.ajax({
+      url: '/activeSubscribe',
+      type: 'POST',
+      data: {subscribeId: newArray},
+      cache: false,
+      async: true,
+      success: function(response){
+
+        if(response.success===true){
+          $("#enabled"+newArray).html("Deactivate")
+          $("#enabled"+newArray).removeClass('label label-sm label-success');
+          $("#enabled"+newArray).addClass('label label-sm label-danger');
+
+
+        }else if(response.success==false){
+          $("#enabled"+newArray).html("Activate");
+          $("#enabled"+newArray).removeClass('label label-sm label-danger');
+          $("#enabled"+newArray).addClass('label label-sm label-success');
+
+
+        }
+
+        if(response.fail==='500'){
+          swal("Please chek any subscribe first!")
+        }
+      },
+
+      error: function (xhr, ajaxOptions, thrownError) {
+      }
+
+    });
+    e.preventDefault();
+  });
+
+
+
+//subscribe feed script
+
+
+  $('.activeFeed').click(function() {
+    if ($(this).is(':checked')) {
+      $('input:checkbox').prop('checked', true);
+    } else {
+      $('input:checkbox').prop('checked', false);
+    }
+  });
+
+  $("input[type='checkbox'].justone").change(function(){
+    var a = $("input[type='checkbox'].justone");
+    if(a.length == a.filter(":checked").length){
+      $('.selectall').prop('checked', true);
+    }
+    else {
+      $('.selectall').prop('checked', false);
+    }
+  });
+
+  i = 0;
+  $(".updateFeed").click(function(e){
+    var arr = [];
+    $('.feedId:checked').each(function () {
+      arr[i++] = $(this).val();
+    });
+    var newArray = arr.filter(function(v){return v!==''});
+
+    $.ajax({
+      url: '/activeFeed',
+      type: 'POST',
+      data: {feedId: newArray},
+      cache: false,
+      async: true,
+      success: function(response){
+        console.log(response.status);
+
+          if(response.success===false){
+              swal("Feed Activate Successfully!")
+
+
+          }else if(response.success===true){
+              swal("Feed Deactivate Successfully!")
+
+          }
+
+          location.reload();
+
+
+
+      },
+
+      error: function (xhr, ajaxOptions, thrownError) {
+      }
+
+    });
+    e.preventDefault();
+
+  });
+
+
+  $(document).on("click", ".deleteSubscribe", function(e){
+    e.preventDefault();
+    var id = $(this).attr("id");
+    swal({
+      title: "Are you sure ??",
+      text: 'Do you want delete this Client?',
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+          $.ajax({
+            url: '/deleteSubscribe',
+            type: 'POST',
+            data: {id: id},
+            success: function(response){
+              console.log(response);
+              location.reload();
+            },
+
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+
+          });
+        } else {
+          swal("Your Subscribe is safe!");
+        }
+      });
+  });
+
+
+
+
+</script>
+
+
+

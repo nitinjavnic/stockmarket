@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta charset="utf-8" />
+  <title>Auto Treader</title>
+
+  <meta name="description" content="User login page" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+  <!-- bootstrap & fontawesome -->
+  <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+  <link rel="stylesheet" href="/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+  <!-- text fonts -->
+  <link rel="stylesheet" href="/styles/fonts.googleapis.com.css" />
+
+  <!-- ace styles -->
+  <link rel="stylesheet" href="/styles/ace.min.css" />
+
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="/styles/ace-part2.min.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="/styles/ace-rtl.min.css" />
+
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="/styles/ace-ie.min.css" />
+  <![endif]-->
+
+  <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+  <!--[if lte IE 8]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="login-layout blur-login">
+<div class="main-container">
+  <div class="main-content-inner">
+
+  <div class="main-content">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <div class="login-container">
+
+          <% flash.get('success').forEach(function (message) { %>
+          <div class="alert alert-success text-center" style="margin-top:10px;">
+            <strong ><%= message %></strong>
+          </div>
+          <% }) %>
+          <div class="center">
+            <h1>
+              <i class="ace-icon fa fa-signal green"></i>
+              <span class="red">Auto</span>
+              <span class="white" id="id-text2">Trader</span>
+            </h1>
+          </div>
+          <div class="space-6"></div>
+          <div class="position-relative">
+            <div id="login-box" class="login-box visible widget-box no-border">
+              <div class="widget-body">
+                <div class="widget-main">
+                  <h4 class="header blue lighter bigger">
+                    Please Enter Your Information
+                  </h4>
+                  <div class="space-6"></div>
+                  <form action="/login" method="POST" enctype="multipart/form-data">
+                    <fieldset>
+                      <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" name="email" class="form-control" placeholder="User" />
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                      </label>
+                      <div class="space-4"></div>
+                      <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password"  name ="password" class="form-control" placeholder="Password" />
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+                      </label>
+                      <div class="space"></div>
+                      <div class="clearfix">
+                        <input type="submit" class="width-35 pull-right btn btn-sm btn-primary" value="Login">
+                      </div>
+                      <div class="space-4"></div>
+                    </fieldset>
+                  </form>
+                </div><!-- /.widget-body -->
+              </div><!-- /.login-box -->
+            </div><!-- /.position-relative -->
+          </div>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.main-content -->
+  </div><!-- /.main-container -->
+
+  <!-- basic scripts -->
+
+  <!--[if !IE]> -->
+  <script src="assets/js/jquery-2.1.4.min.js"></script>
+
+  <!-- <![endif]-->
+
+  <!--[if IE]>
+  <script src="assets/js/jquery-1.11.3.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+  </script>
+
+  <!-- inline scripts related to this page -->
+  <script type="text/javascript">
+    jQuery(function($) {
+      $(document).on('click', '.toolbar a[data-target]', function(e) {
+        e.preventDefault();
+        var target = $(this).data('target');
+        $('.widget-box.visible').removeClass('visible');//hide others
+        $(target).addClass('visible');//show target
+      });
+    });
+
+  </script>
+</body>
+</html>

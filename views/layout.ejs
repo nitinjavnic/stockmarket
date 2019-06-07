@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/ace-ie.min.css">
+    <link rel="stylesheet" href="/styles/ace-part2.min.css">
+    <link rel="stylesheet" href="/styles/ace-rtl.min.css">
+    <link rel="stylesheet" href="/styles/ace-skins.min.css">
+    <link rel="stylesheet" href="/styles/ace.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-editable.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-multiselect.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap-timepicker.min.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/chosen.min.css">
+    <link rel="stylesheet" href="/styles/colorbox.min.css">
+    <link rel="stylesheet" href="/styles/daterangepicker.min.css">
+    <link rel="stylesheet" href="/styles/dropzone.min.css">
+    <link rel="stylesheet" href="/styles/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/fonts.googleapis.com.css">
+    <link rel="stylesheet" href="/styles/fullcalendar.min.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/jquery-ui.custom.min.css">
+    <link rel="stylesheet" href="/styles/jquery-ui.min.css">
+    <link rel="stylesheet" href="/styles/jquery.gritter.min.css">
+    <link rel="stylesheet" href="/styles/prettify.min.css">
+    <link rel="stylesheet" href="/styles/select2.min.css">
+    <link rel="stylesheet" href="/styles/ui.jqgrid.min.css">
+    <!--STYLES END-->
+  </head>
+
+  <body>
+    <%- body %>
+
+
+
+    <!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different template engine (handlebars, jade, dust, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+    <!--TEMPLATES-->
+    
+    <!--TEMPLATES END-->
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can always bring in JS files manually with `script` tags, or asynchronously
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, files in your `assets/js` folder are included here
+      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+      and concatenated into a single file.
+
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Change the order of your scripts
+          + Import scripts from other directories
+          + Use a different preprocessor, like TypeScript
+
+    -->
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/ace-editable.min.js"></script>
+    <script src="/js/ace-elements.min.js"></script>
+    <script src="/js/ace-extra.min.js"></script>
+    <script src="/js/ace.min.js"></script>
+    <script src="/js/autosize.min.js"></script>
+    <script src="/js/bootbox.js"></script>
+    <script src="/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+    <script src="/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/js/bootstrap-editable.min.js"></script>
+    <script src="/js/bootstrap-markdown.min.js"></script>
+    <script src="/js/bootstrap-multiselect.min.js"></script>
+    <script src="/js/bootstrap-tag.min.js"></script>
+    <script src="/js/bootstrap-timepicker.min.js"></script>
+    <script src="/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/buttons.colVis.min.js"></script>
+    <script src="/js/buttons.flash.min.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/buttons.print.min.js"></script>
+    <script src="/js/chosen.jquery.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/dataTables.select.min.js"></script>
+    <script src="/js/daterangepicker.min.js"></script>
+    <script src="/js/dropzone.min.js"></script>
+    <script src="/js/excanvas.min.js"></script>
+    <script src="/js/fullcalendar.min.js"></script>
+    <script src="/js/grid.locale-en.js"></script>
+    <script src="/js/holder.min.js"></script>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <script src="/js/jquery-additional-methods.min.js"></script>
+    <script src="/js/jquery-typeahead.js"></script>
+    <script src="/js/jquery-ui.custom.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.bootstrap-duallistbox.min.js"></script>
+    <script src="/js/jquery.colorbox.min.js"></script>
+    <script src="/js/jquery.dataTables.bootstrap.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/jquery.easypiechart.min.js"></script>
+    <script src="/js/jquery.flot.min.js"></script>
+    <script src="/js/jquery.flot.pie.min.js"></script>
+    <script src="/js/jquery.flot.resize.min.js"></script>
+    <script src="/js/jquery.gritter.min.js"></script>
+    <script src="/js/jquery.hotkeys.index.min.js"></script>
+    <script src="/js/jquery.inputlimiter.min.js"></script>
+    <script src="/js/jquery.jqGrid.min.js"></script>
+    <script src="/js/jquery.knob.min.js"></script>
+    <script src="/js/jquery.maskedinput.min.js"></script>
+    <script src="/js/jquery.mobile.custom.min.js"></script>
+    <script src="/js/jquery.nestable.min.js"></script>
+    <script src="/js/jquery.raty.min.js"></script>
+    <script src="/js/jquery.sparkline.index.min.js"></script>
+    <script src="/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/markdown.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/prettify.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/spin.js"></script>
+    <script src="/js/spinbox.min.js"></script>
+    <script src="/js/tree.min.js"></script>
+    <script src="/js/wizard.min.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>

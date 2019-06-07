@@ -1,0 +1,237 @@
+<div class="main-container ace-save-state" id="main-container">
+  <script type="text/javascript">
+    try{ace.settings.loadState('main-container')}catch(e){}
+  </script>
+
+  <%- partial('./partials/sideBar.ejs') %>
+
+
+
+  <div class="main-content">
+    <div class="main-content-inner">
+
+      <% flash.get('success').forEach(function (message) { %>
+      <div class="alert alert-danger text-center">
+        <strong ><%= message %></strong>
+      </div>
+      <% }) %>
+
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="index.html">Home</a>
+          </li>
+          <li class="active">Client Login</li>
+        </ul><!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+          <form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+          </form>
+        </div><!-- /.nav-search -->
+      </div>
+
+      <div class="page-content">
+        <div class="page-header">
+          <h1>
+            Client Login
+          </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="widget-box">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title">Zerodha</h4>
+                  </div>
+                  <div class="space-8"></div>
+                  <form  action="/zerodhaClient" class="form-horizontal" method="POST"><!---upstox form end-->
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Name:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="name" name="name" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-2"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="uid">UID:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="uid" name="uid" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="space-2"></div>
+
+
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="password" name="password" id="password" class="col-xs-12 col-sm-10" />
+                          <input type="hidden" name="clientType" id="clientType" value="Zerodha" class="col-xs-12 col-sm-10" />
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-2"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="dob">Year:</label>
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" name="year" id="year" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="hr hr-dotted"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="akey"> API key:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="akey" name="akey" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-2"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="skey">Secret key:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="skey" name="skey" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-xs-12 col-sm-12 text-center">
+                        <input type="submit" class="btn btn-success" value="Add Client">
+                        <input type="button" class="btn" value="Reset">
+                      </div>
+                    </div>
+
+                  </form><!---Zerodha form-->
+                </div>
+              </div><!-- /.col -->
+
+              <div class="col-sm-6">
+                <div class="widget-box">
+                  <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title">UpStox</h4>
+                  </div>
+                  <div class="space-8"></div><!---upstox form-->
+                  <form action="/addClient" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Client Name:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="name" name="name" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-2"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">UserId:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="uid" name="uid" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="space-2"></div>
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="password" name="password" id="password" class="col-xs-12 col-sm-10" />
+                          <input type="hidden" name="clientType" id="clientType" value="Upstox" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-2"></div>
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="year">Date Of Year:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" name="year" id="year" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="hr hr-dotted"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="akey"> API key:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="akey" name="akey" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-2"></div>
+
+                    <div class="form-group">
+                      <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="skey">Secret key:</label>
+
+                      <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                          <input type="text" id="skey" name="skey" class="col-xs-12 col-sm-10" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-xs-12 col-sm-12 text-center">
+                        <input type="submit" class="btn btn-success" value="AddClient">
+                        <input type="button" class="btn" value="Reset">
+                      </div>
+                    </div>
+                  </form><!---upstox form end-->
+                </div>
+              </div><!-- /.col -->
+            </div>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.page-content -->
+    </div>
+  </div><!-- /.main-content -->
+
+
+
+  <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+  </a>
+</div><!-- /.main-container -->
