@@ -132,7 +132,7 @@ module.exports = {
                                     return res.serverError(err);
                                 }
 
-                                let date_format;
+                                /*let date_format;
                                 let date_format2;
                                 dataResult.forEach(async function (value,index) {
                                     let timeStamp =  value.createdAt;
@@ -144,6 +144,72 @@ module.exports = {
                                     date_format = newdate.format("YYYY-MM-DD HH:mm:ss ");
                                     date_format2 = newdate2.format("YYYY-MM-DD HH:mm:ss ");
 
+                                });*/
+
+                                async.eachOfSeries(dataResult,function (createdAt,index,next) {
+                                    console.log(createdAt);
+
+                                        let timeStamp =  createdAt.createdAt;
+                                        var d1 = timeStamp,
+                                        d2 = new Date ( d1 );
+                                        d2.setMinutes (timeStamp.getMinutes() + 1 );
+                                        var newdate = moment(timeStamp);
+                                        var newdate2 = moment(d2);
+                                        var date_format = newdate.format("YYYY-MM-DD HH:mm:ss ");
+                                        var date_format2 = newdate2.format("YYYY-MM-DD HH:mm:ss ");
+
+
+                                        let test1 = `SELECT * FROM options WHERE createdAt BETWEEN '${date_format}' AND '${date_format2}' ORDER BY createdAt DESC`;
+                                        console.log('>>>>>>>nitin',test1);
+                                        Options.query(test1,  function(err, rawResult) {
+
+                                        if(rawResult){
+                                            let open = rawResult[0].ltp;
+                                            let close = rawResult.slice(-1).pop();
+                                            let volume = rawResult.slice(-1).pop();
+                                            let oi = rawResult.slice(-1).pop();
+                                            let bidqty = rawResult.slice(-1).pop();
+                                            let bidprice = rawResult.slice(-1).pop();
+                                            let askqty = rawResult.slice(-1).pop();
+                                            let askprice = rawResult.slice(-1).pop();
+                                            let newclose = close.ltp;
+                                            let newvolume = volume.volume;
+                                            let newoi = oi.oi;
+                                            let newbidqty = bidqty.bidqty;
+                                            let newbidprice = bidprice.bidprice;
+                                            let newaskqty = askqty.askqty;
+                                            let newaskprice = askprice.askprice;
+                                            let heigh = Math.max(...rawResult.map(s => s.ltp));
+                                            let low = Math.min(...rawResult.map(s => s.ltp));
+                                            MinuteOption.create({
+                                                symbool:rawResult[0].symbool,
+                                                strikeprice:strickprice,
+                                                expire:expire,
+                                                O:open,
+                                                H:heigh,
+                                                L:low,
+                                                C:newclose,
+                                                Sum:newvolume,
+                                                OI:newoi,
+                                                bid_qty:newbidqty,
+                                                bid_price:newbidprice,
+                                                askqty:newaskqty,
+                                                ask_price:newaskprice,
+
+
+                                            }).
+                                            exec(function (err, finn){
+                                                if (err) {
+                                                    console.log('errror ',err);
+                                                }
+
+                                                return res.ok();
+                                            });
+
+                                        }
+
+                                    });
+
                                 });
 
 
@@ -151,59 +217,6 @@ module.exports = {
 
                             });
 
-                                var test1 = `SELECT * FROM options WHERE createdAt BETWEEN '2019-07-16 15:17:10' AND '2019-07-16 15:18:10' ORDER BY createdAt DESC`;
-                                Options.query(test1,  function(err, rawResult) {
-                                    if (err) {
-                                        console.log('errror ',err);
-                                    }
-
-                                    console.log('test data',rawResult.length);
-
-                                    let open = rawResult[0].ltp;
-                                    let close = rawResult.slice(-1).pop();
-                                    let volume = rawResult.slice(-1).pop();
-                                    let oi = rawResult.slice(-1).pop();
-                                    let bidqty = rawResult.slice(-1).pop();
-                                    let bidprice = rawResult.slice(-1).pop();
-                                    let askqty = rawResult.slice(-1).pop();
-                                    let askprice = rawResult.slice(-1).pop();
-                                    let newclose = close.ltp;
-                                    let newvolume = volume.volume;
-                                    let newoi = oi.oi;
-                                    let newbidqty = bidqty.bidqty;
-                                    let newbidprice = bidprice.bidprice;
-                                    let newaskqty = askqty.askqty;
-                                    let newaskprice = askprice.askprice;
-                                    let heigh = Math.max(...rawResult.map(s => s.ltp));
-                                    let low = Math.min(...rawResult.map(s => s.ltp));
-
-
-                                    MinuteOption.create({
-                                        symbool:rawResult[0].symbool,
-                                        strikeprice:strickprice,
-                                        expire:expire,
-                                        O:open,
-                                        H:heigh,
-                                        L:low,
-                                        C:newclose,
-                                        Sum:newvolume,
-                                        OI:newoi,
-                                        bid_qty:newbidqty,
-                                        bid_price:newbidprice,
-                                        askqty:newaskqty,
-                                        ask_price:newaskprice,
-
-
-                                    }).
-                                    exec(function (err, finn){
-                                        if (err) {
-                                            console.log('errror ',err);
-                                        }
-
-                                        return res.ok();
-                                    });
-
-                                });
 
 
                         }).catch(function(err){
