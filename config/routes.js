@@ -44,13 +44,17 @@ module.exports.routes = {
       layout: '/layouts/dashboardLayout'
     }},
 
-  '/': { view: 'login',locals: {
-      layout: false
+  '/': { view: 'frontEnd/home',locals: {
+          layout: '/layouts/fronLayout'
     }},
 
-  /*'get /clientDetail': { view: 'clientDetails',locals: {
-      layout: '/layouts/dashboardLayout'
-    }},*/
+    'GET /optionChain': 'IndexController.Indexoption',
+    'POST /ohlMinute': 'IndexController.ohlMinute',
+
+
+    /*'get /clientDetail': { view: 'clientDetails',locals: {
+        layout: '/layouts/dashboardLayout'
+      }},*/
 
   'GET /clientDetail': 'addclientsController.clientDetails',
   'GET /ohlc': 'upstoxController.getOhlc',

@@ -1,29 +1,21 @@
 module.exports = {
     attributes: {
 
-        o: {
+        open: {
             type: 'string',
         },
-        h: {
+        high: {
             type: 'string',
         },
 
-        l:{
+        low:{
             type:'string'
         },
 
-        clientId:{
+        close:{
             type:'string'
         },
-        exchange:{
-            type:'string'
 
-        },
-
-        feedSymbool:{
-            type:'string'
-
-        }
     }
 
 };

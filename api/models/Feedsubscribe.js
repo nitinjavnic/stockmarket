@@ -1,18 +1,33 @@
 module.exports = {
-  attributes: {
-    Feedsymbool: {
-      type: 'string'
-    },
+    attributes: {
+        Feedsymbool: {
+            type: 'string'
+        },
 
-    exchange: {
-      type: 'string'
-    },
+        exchange: {
+            type: 'string'
+        },
 
-    isSubscribe:{
-      type:'boolean',
-      defaultsTo:false
-    },
+        symbool: {
+            type: 'string'
+        },
 
-  }
+
+        tables: {
+            type: 'string'
+        },
+        strickprice: {
+            type: 'string'
+        },
+        expire: {
+            type: 'string'
+        },
+
+        isSubscribe:{
+            type:'boolean',
+            defaultsTo:false
+        },
+
+    }
 
 };

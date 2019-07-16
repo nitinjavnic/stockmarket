@@ -1,0 +1,147 @@
+<div class="container reading-table">
+    <div class="row">
+        <div class="col-md-12 ">
+            <h3>Option Chain (Equity Derivatives)</h3>
+        </div>
+
+    </div>
+
+    <div class="row ">
+        <div class="col-md-12 table-main-filter">
+            <div class="col-md-3 col-12 table-filter1">
+                <div>
+                    <label>View Options Contracts for: </label>
+                    <option selected>Select</option>
+                    <select class="custom-select subscribe">
+                        <%
+                        subscribe.forEach(function (current,index) {%>
+                        <option value="<%=current.Feedsymbool%>"><%=current.Feedsymbool%></option>
+                        <%})%>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-12 table-filter2">
+                <div>
+                    <label>Historical Date </label>
+                    <select class="custom-select">
+                        <option selected>Select</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-12 table-filter3">
+                <div>
+                    <label>Historical Time </label>
+                    <input id="myInput" type="text" placeholder="Search..">
+                </div>
+            </div>
+
+            <div class="col-md-3 col-12 table-filter3">
+                <div>
+                    <label>EXPIRY Date </label>
+                    <input id="myInput" type="text" placeholder="Search..">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row ">
+        <div class="col-md-12 main-data-table">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mytable">
+                    <thead class="thead-light">
+                    <tr>
+                        <th colspan="10" class="text-center">Calls</th>
+                        <th>Calls</th>
+                        <th colspan="10" class="text-center">Calls</th>
+                    </tr>
+                    <tr>
+                        <th>OI</th>
+                        <th >Change in OI</th>
+                        <th>Volume</th>
+                        <th>IV</th>
+                        <th>LTP</th>
+                        <th>NET Change</th>
+                        <th>Bid qty</th>
+                        <th>Bid price</th>
+                        <th>Ask price</th>
+                        <th>Ask Qty</th>
+                        <th>Strike Price</th>
+                        <th>Bid qty</th>
+                        <th>bid price</th>
+                        <th>ask price</th>
+                        <th>Ask Qty</th>
+                        <th>net change</th>
+                        <th>LTP</th>
+                        <th>IV</th>
+                        <th>Volume</th>
+                        <th>Change In OI</th>
+                        <th>OI</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/jquery-1.11.3.min.js"></script>
+
+
+<script>
+    $(".subscribe").change( function (event) {
+        var symbool = $(this).val()
+        $.ajax({
+            url: '/ohlMinute',
+            type: 'POST',
+            data: {symbool: symbool},
+            cache: false,
+            async: true,
+            success: function(response){
+                console.log(response);
+                $('.mytable tbody').html(response);
+
+            },
+
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+
+        });
+
+
+    });
+
+</script>
+
+

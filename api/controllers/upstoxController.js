@@ -3,6 +3,7 @@ const request = require('request');
 var opn = require('opn');
 var schedule = require('node-schedule');
 const moment = require('moment');
+const async = require('async');
 
 module.exports = {
     upstoxCallback:async function(req ,res){
@@ -25,55 +26,189 @@ module.exports = {
                     accessToken = response.access_token;
                     upstox.setToken(accessToken);
                     let subscribeFeed = await Feedsubscribe.find({isSubscribe:true});
-                    let subscribeFeedIDs=[];
+
+                    let tables;
+                    let strickprice;
+                    let expire;
                     subscribeFeed.forEach(function (value) {
-                        subscribeFeedIDs.push(value.id);
+                        tables = value.tables;
+                        strickprice = value.strickprice;
+                        expire = value.expire;
                     });
-
                     upstox.connectSocket()
-                            .then(function(){
+                        .then(function(){
 
-                                subscribeFeed.forEach(async function (subscibedata,index) {
-                                    let feedSymbool = subscibedata.Feedsymbool;
-                                    let exchange = subscibedata.exchange;
-                                    let subscribeId= subscibedata.id;
+                            subscribeFeed.forEach(async function (subscibedata,index) {
+                                let feedSymbool = subscibedata.Feedsymbool;
+                                let exchange = subscibedata.exchange;
 
-                                    upstox.subscribeFeed({
-                                        "exchange": exchange,
-                                        "symbol":feedSymbool,
-                                        "type": "ltp",
+                                upstox.subscribeFeed({
+                                    "exchange": exchange,
+                                    "symbol":feedSymbool,
+                                    "type": "full",
+                                })
+                                    .then(async function (response) {
+                                        console.log('***',response);
                                     })
-                                        .then(async function (response) {
-                                            console.log('response',response);
-
-
-                                        })
-                                        .catch(function (error) {
-                                            console.log('Error in subscribe feed ', error);
-                                        });
-                                });
-
-                                upstox.on("liveFeed", async function (livedata) {
-                                    livedata.forEach(async function (value,index) {
-                                         await liveltp.create({exchange:value.exchange,feedSymbool:value.symbol,liveLtp:value.ltp});
-
+                                    .catch(function (error) {
+                                        console.log('Error in subscribe feed ', error);
                                     });
+                            });
+
+                            upstox.on("liveFeed", async function (livedata) {
+                                livedata.forEach(async function (value,index1) {
+
+                                    if(tables==='index'){
+                                       await index_tables.create({ltp:value.ltp,timestamp:value.timestamp,symbool:value.symbol,yearlylow:value.yearly_low,yearlyhigh:value.yearly_high});
+                                       let ltp = await index_tables.find({select: ['ltp','symbool']}).sort('createdAt DESC').limit(60);
+                                       let open = ltp[0].ltp;
+                                       let close = ltp.slice(-1).pop();
+                                       let newclose = close.ltp;
+                                       let heigh = Math.max(...ltp.map(s => s.ltp));
+                                       let low = Math.min(...ltp.map(s => s.ltp));
+                                       let yearlyhigh=ltp.yearlyhigh;
+                                       let yearlylow=ltp.yearlylow;
+                                       let symbool=ltp[0].symbool;
+                                       await Minuteindex.create({open:open,high:heigh,low:low,close:newclose,yearlyhigh:yearlyhigh,yearlylow:yearlylow,strickprice:strickprice,symbool:symbool});
+
+                                   }
+
+                                   if(tables==='future'){
+                                       await Future.create({liveLtp:value.ltp,timestamp:value.timestamp});
+                                       let ltp = await Future.find({select: ['ltp']}).sort('createdAt DESC').limit(60);
+                                       let open = ltp[0].ltp;
+                                       let close = ltp.slice(-1).pop();
+                                       let newclose = close.ltp;
+                                       let heigh = Math.max(...ltp.map(s => s.ltp));
+                                       let low = Math.min(...ltp.map(s => s.ltp));
+                                       await MinuteFuture.create({open:open,high:heigh,low:low,close:newclose});
+                                   }
+
+                                   if(tables==='stock'){
+                                       await Stock.create({liveLtp:value.ltp,timestamp:value.timestamp});
+                                       let ltp = await Stock.find({select: ['ltp']}).sort('createdAt DESC').limit(60);
+                                       let open = ltp[0].ltp;
+                                       let close = ltp.slice(-1).pop();
+                                       let newclose = close.ltp;
+                                       let heigh = Math.max(...ltp.map(s => s.ltp));
+                                       let low = Math.min(...ltp.map(s => s.ltp));
+                                       await MinuteStock.create({open:open,high:heigh,low:low,close:newclose});
+
+                                   }
+
+                                   if(tables==='option'){
+
+                                       Options.create({
+                                           ltp:value.ltp,
+                                           timestamp:value.timestamp,
+                                           volume:value.vtt,
+                                           symbool:value.symbol,
+                                           strikeprice:strickprice,
+                                           oi:value.oi,
+                                           bidqty:value.bids[0].quantity,
+                                           bidprice:value.bids[0].price,
+                                           askqty:value.asks[0].quantity,
+                                           askprice:value.asks[0].price
+
+                                       }).exec(function (err, result){
+                                           if (err) {
+                                               return res.serverError(err);
+                                           }
+
+
+                                       });
+
+                                   }
+
+
                                 });
 
-                                liveltp.query('SELECT * FROM liveltp WHERE createdAt > DATE_SUB(NOW(),INTERVAL 1 MINUTE)' ,async function(err, rawResult) {
-                                    if (err) { return res.serverError(err); }
 
-                                    sails.log(rawResult);
+                            });
 
-                                    return res.ok();
+
+                            Options.query('SELECT createdAt FROM options ORDER BY createdAt DESC',function(err, dataResult) {
+                                if (err) {
+                                    return res.serverError(err);
+                                }
+
+                                let date_format;
+                                let date_format2;
+                                dataResult.forEach(async function (value,index) {
+                                    let timeStamp =  value.createdAt;
+                                    var d1 = timeStamp,
+                                        d2 = new Date ( d1 );
+                                    d2.setMinutes (timeStamp.getMinutes() + 1 );
+                                    var newdate = moment(timeStamp);
+                                    var newdate2 = moment(d2);
+                                    date_format = newdate.format("YYYY-MM-DD HH:mm:ss ");
+                                    date_format2 = newdate2.format("YYYY-MM-DD HH:mm:ss ");
 
                                 });
 
 
+                               // var test = `SELECT * FROM options WHERE createdAt BETWEEN '${date_format}' AND '${date_format2}' ORDER BY createdAt DESC`;
 
-                            }).catch(function(err){
-                            console.log('Error',err);
-                        });
+                            });
+
+                                var test1 = `SELECT * FROM options WHERE createdAt BETWEEN '2019-07-16 15:17:10' AND '2019-07-16 15:18:10' ORDER BY createdAt DESC`;
+                                Options.query(test1,  function(err, rawResult) {
+                                    if (err) {
+                                        console.log('errror ',err);
+                                    }
+
+                                    console.log('test data',rawResult.length);
+
+                                    let open = rawResult[0].ltp;
+                                    let close = rawResult.slice(-1).pop();
+                                    let volume = rawResult.slice(-1).pop();
+                                    let oi = rawResult.slice(-1).pop();
+                                    let bidqty = rawResult.slice(-1).pop();
+                                    let bidprice = rawResult.slice(-1).pop();
+                                    let askqty = rawResult.slice(-1).pop();
+                                    let askprice = rawResult.slice(-1).pop();
+                                    let newclose = close.ltp;
+                                    let newvolume = volume.volume;
+                                    let newoi = oi.oi;
+                                    let newbidqty = bidqty.bidqty;
+                                    let newbidprice = bidprice.bidprice;
+                                    let newaskqty = askqty.askqty;
+                                    let newaskprice = askprice.askprice;
+                                    let heigh = Math.max(...rawResult.map(s => s.ltp));
+                                    let low = Math.min(...rawResult.map(s => s.ltp));
+
+
+                                    MinuteOption.create({
+                                        symbool:rawResult[0].symbool,
+                                        strikeprice:strickprice,
+                                        expire:expire,
+                                        O:open,
+                                        H:heigh,
+                                        L:low,
+                                        C:newclose,
+                                        Sum:newvolume,
+                                        OI:newoi,
+                                        bid_qty:newbidqty,
+                                        bid_price:newbidprice,
+                                        askqty:newaskqty,
+                                        ask_price:newaskprice,
+
+
+                                    }).
+                                    exec(function (err, finn){
+                                        if (err) {
+                                            console.log('errror ',err);
+                                        }
+
+                                        return res.ok();
+                                    });
+
+                                });
+
+
+                        }).catch(function(err){
+                        console.log('Error',err);
+                    });
 
 
 
@@ -82,6 +217,7 @@ module.exports = {
         });
 
     },
+
 
 
 
@@ -99,7 +235,7 @@ module.exports = {
                 .set({
                     GetFeed:true
                 });
-           //opn(loginUrl);
+            //opn(loginUrl);
             return res.json({"success":true,loginUrl:loginUrl});
         }else if(Clients.GetFeed===true){
             let updatedClients = await Client.update({ userId:userId })
@@ -203,7 +339,7 @@ module.exports = {
             where: {feedSymbool:feedSymbol},
             select: ['liveLtp']
         })
-        .limit(60);
+            .limit(60);
         let ltp=[];
         ohlc.forEach(function (liveltp) {
             ltp.push(liveltp.liveLtp)
@@ -219,10 +355,10 @@ module.exports = {
             if (parseFloat(x) > maxresult) maxresult = x; // find smallest number as string instead
         });
 
-      let maximumNumber = maxresult;
-      let minmumNumber = minresult;
-      let opevalue = ltp[0];
-      let closevalue = ltp[ltp.length - 1];
+        let maximumNumber = maxresult;
+        let minmumNumber = minresult;
+        let opevalue = ltp[0];
+        let closevalue = ltp[ltp.length - 1];
         res.view('getOhlc', {
             o: opevalue,
             h: maximumNumber,

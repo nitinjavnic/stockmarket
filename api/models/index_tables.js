@@ -5,6 +5,11 @@ module.exports = {
         symbool: {
             type: 'string',
         },
+
+        timestamp:{
+          type:'string',
+        },
+
         ltp: {
             type: 'string',
             required: true,

@@ -218,14 +218,20 @@ module.exports = {
   addSubscribe:async function(req,res){
     try{
       if(req.body){
-
-        let clients
-
+        let clients;
         let exchange = req.body.exchange;
         let Feedsymbool = req.body.Feedsymbool;
+        let tables = req.body.tables;
+        let strickprice = req.body.strickprice;
+        let expire = req.body.expire;
+        let symbool = req.body.symbool;
         let createdClients = await Feedsubscribe.create({
-          exchange: exchange,
-          Feedsymbool: Feedsymbool,
+            exchange: exchange,
+            Feedsymbool: Feedsymbool,
+            tables: tables,
+            strickprice: strickprice,
+            expire: expire,
+            symbool: symbool,
         });
 
         req.addFlash('success', 'Subscribe Add SuccessFully');
@@ -314,11 +320,19 @@ module.exports = {
         let subscribeId = req.body.subscribeId;
         let Feedsymbool = req.body.Feedsymbool;
         let exchange = req.body.exchange;
+        let tables = req.body.tables;
+        let strickprice = req.body.strickprice;
+        let expire = req.body.expire;
+        let symbool = req.body.symbool;
 
         let updateSubcribe = await Feedsubscribe.update({id:subscribeId})
           .set({
             Feedsymbool: Feedsymbool,
             exchange: exchange,
+              tables: tables,
+              strickprice: strickprice,
+              expire: expire,
+              symbool: symbool,
           });
 
         req.addFlash('success', 'Subscribe Update Successfully.');
