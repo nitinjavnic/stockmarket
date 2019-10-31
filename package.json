@@ -9,7 +9,7 @@
     "bcrypt": "^3.0.5",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.3",
-    "ejs": "2.3.4",
+    "ejs": "2.7.1",
     "electron-open-url": "^1.6.0",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
